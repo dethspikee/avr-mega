@@ -16,3 +16,5 @@ void USART_Init_TX(unsigned int baud) {
     /* Set frame format: 8 data bits and 2 stop bits */
     UCSRnC |= (unsigned char) 0x0D; 
 }
+
+void USART_Transmit(unsigned char data){}
