@@ -1,9 +1,9 @@
 #include "usart/usart.h"
 
-#define BAUD_RATE 9600
-
-
 int main(void) {
-    USART_Init_TX(BAUD_RATE);
+    InitUsart();
+    while (1) {
+        USART_Transmit(120);
+    }
     return 0;
 }

@@ -1,2 +1,2 @@
-void USART_Init_TX(unsigned int baud);
+void InitUsart(void);
 void USART_Transmit(unsigned char data);
