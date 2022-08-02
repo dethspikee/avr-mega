@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "usart.h"
 
 #define IO_DATA_REG                     (* (volatile char *) (0xC6))
@@ -6,6 +7,7 @@
 #define CTL_AND_STATUS_REG_C            (* (volatile char *) (0xC2))
 #define CTL_AND_STATUS_REG_B            (* (volatile char *) (0xC1))
 #define CTL_AND_STATUS_REG_A            (* (volatile char *) (0xC0))
+#define UDRE0                           5
 #define INPUT_BAUD                      9600L
 #define F_OSC                           1000000L
 #define OUTPUT_BAUD                     (((F_OSC) / (8L * INPUT_BAUD)) - 1)
@@ -27,6 +29,16 @@ void InitUsart(void) {
 
 }
 
+void printString(char *msg) {
+  while (*msg) {
+    USART_Transmit(*msg);
+    msg++;
+  }
+}
+
 void USART_Transmit(unsigned char data){
+  while (!(CTL_AND_STATUS_REG_A & (1 << UDRE0)))
+    ;
+  
   IO_DATA_REG = data;                                            /* send data */
 }
